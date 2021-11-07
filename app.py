@@ -83,6 +83,9 @@ def index():
 
 #  Students
 #  ----------------------------------------------------------------
+"""
+show all the st
+"""
 @app.route('/students')
 def students():
 
@@ -100,6 +103,24 @@ def students():
 
   return render_template('pages/students.html', areas=data);
 
+"""
+create an endpoint for the search the of the students
+"""
+@app.route('/students/search', methods=['POST'])
+def search_student():
+
+  term = request.form.get('search_term', '')
+
+  # seach for student should return student with that name
+  result = db.session.query(Student).filter(Student.name.ilike(f'%{term}%')).all()
+
+  response = {
+    "count":len(result),
+    "data": result
+  }
+
+  # create search_students page to do in the future.
+  return render_template('pages/search_students.html', results=response, search_term=request.form.get('search_term', ''))
 
 
 #----------------------------------------------------------------------------#

@@ -3,7 +3,7 @@
 # how to run it 
 # FLASK_APP=app.py FLASK_DEBUG=1 flask run 
 #----------------------------------------------------------------------------#
-from flask import Flask
+from flask import Flask, render_template, request, Response, flash, redirect, url_for, jsonify, abort
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 import logging
@@ -67,9 +67,45 @@ class Interview(db.Model):
     def __repr__(self):
         return f'<interview id: {self.id} student id: {self.id_student} company interviewer id: {self.id_company}  match_availability: {self.match_availability}>'
 
-@app.route("/")
-def hello_world():
-    db.app = app
-    # db.init_app(app)
-    db.create_all()
-    return "<p>Hello, World!</p>"
+#----------------------------------------------------------------------------#
+# Controllers.
+#----------------------------------------------------------------------------#
+
+@app.route('/')
+def index():
+  db.create_all()
+    # db.app = app
+    # # db.init_app(app)
+    # db.create_all()
+
+  return render_template('pages/home.html')
+
+
+#  Students
+#  ----------------------------------------------------------------
+@app.route('/students')
+def students():
+
+  print("hello")
+  stus = db.session.query(Student).all()
+  print(stus)
+  data = []
+
+  for s in stus:
+        # student = Student.query.filter(Student.id == area.id).filter(Venue.id == area.id).all()
+  
+        data.append({ 'id': s.id, 'name': s.name })
+
+  
+
+  return render_template('pages/students.html', areas=data);
+
+
+
+#----------------------------------------------------------------------------#
+# Launch.
+#------------------------------------------------------------------ ----------#
+
+# Default port:
+if __name__ == '__main__':
+    app.run()

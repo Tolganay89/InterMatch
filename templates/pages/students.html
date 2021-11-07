@@ -1,0 +1,15 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Career | Student{% endblock %}
+{% block content %}
+{% for area in areas %}
+<ul class="items">
+	<li>
+		<a href="/students/{{ area.id }}">
+			<div class="item">
+                <h3>{{ area.id }} - {{ area.name }}</h3>
+			</div>
+		</a>
+	</li>
+</ul>
+{% endfor %}
+{% endblock %}

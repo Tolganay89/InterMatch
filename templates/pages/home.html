@@ -1,0 +1,17 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Career{% endblock %}
+{% block content %}
+<div class="row">
+	<div class="col-sm-6">
+		<h1>InterMatch</h1>
+		<h3>
+			<a href="/students"><button class="btn btn-primary btn-lg">Find an student</button></a>
+			<a href="/students/create"><button class="btn btn-default btn-lg">Post an student</button></a>
+		</h3>
+	
+	</div>
+	<div class="col-sm-6 hidden-sm hidden-xs">
+		<img id="front-splash" src="{{ url_for('static',filename='img/front-splash.jpg') }}" alt="Career picture" />
+	</div>
+</div>
+{% endblock %}

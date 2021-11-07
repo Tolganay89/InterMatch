@@ -8,6 +8,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 import logging
 from logging import Formatter, FileHandler
+from forms import StudentForm
 
 
 
@@ -84,7 +85,7 @@ def index():
 #  Students
 #  ----------------------------------------------------------------
 """
-show all the st
+show all the students
 """
 @app.route('/students')
 def students():
@@ -122,6 +123,7 @@ def search_student():
   # create search_students page to do in the future.
   return render_template('pages/search_students.html', results=response, search_term=request.form.get('search_term', ''))
 
+
 """
 show all the student endpoint 
 """
@@ -150,6 +152,57 @@ def show_student(student_id):
 
   # create search_students page to do in the future.
   return render_template('pages/show_student.html', student=data)
+
+
+
+"""
+create a student to post it in the database by using form
+"""
+@app.route('/students/create', methods=['GET'])
+def create_student_form():
+  form = StudentForm()
+
+   # create search_students page to do in the future.
+  return render_template('forms/new_student.html', form=form)
+
+"""
+create an endpoint to submit information to the datatbase 
+"""
+@app.route('/students/create', methods=['POST'])
+def create_student_submission():
+
+  error = False
+  try:
+    student = Student( 
+      id_student_college = request.form['id_student_college'],
+      name = request.form['name'],
+      availability = request.form['availability'],
+      address = request.form['address'],
+      phone = request.form['phone'],
+    )
+
+    db.session.add(student)
+    db.session.commit()
+
+
+    flash('Student ' + request.form['name'] + ' was successfully listed!')
+
+  except(error):
+    flash('An error occurred. Venue ' + request.form['name']+ ' could not be listed.')
+    db.session.rollback()
+    error = True
+
+  finally:
+    db.session.close()
+
+  if error:
+        abort(400)
+
+  return render_template('pages/home.html')
+
+
+
+
 
 #----------------------------------------------------------------------------#
 # Launch.

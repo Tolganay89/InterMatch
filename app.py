@@ -150,7 +150,7 @@ def show_student(student_id):
     
     }
 
-  # create search_students page to do in the future.
+
   return render_template('pages/show_student.html', student=data)
 
 
@@ -162,7 +162,7 @@ create a student to post it in the database by using form
 def create_student_form():
   form = StudentForm()
 
-   # create search_students page to do in the future.
+
   return render_template('forms/new_student.html', form=form)
 
 """

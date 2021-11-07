@@ -1,0 +1,38 @@
+{% extends 'layouts/main.html' %}
+{% block title %}{{ student.name }} | Student{% endblock %}
+{% block content %}
+<div class="row">
+	<div class="col-sm-6">
+		<h1 class="monospace">
+			{{ student.name }}
+		</h1>
+		<p class="subtitle">
+			ID: {{ student.id }}
+		</p>
+
+		<p>
+			<i class="fas fa-globe-americas"></i> {{ student.id_student_college }}, {{ student.name }}
+		</p>
+		<p>
+			<i class="fas fa-phone-alt"></i> {% if student.availability %}{{ student.availability }}{% else %}No Availability{% endif %}
+        </p>
+		<p>
+			<i class="fas fa-phone-alt"></i> {% if student.address %}{{ student.address }}{% else %}No address{% endif %}
+        </p>
+		<p>
+			<i class="fas fa-phone-alt"></i> {% if student.phone %}{{ student.phone }}{% else %}No Phone{% endif %}
+        </p>
+		<p>
+			<i class="fas fa-phone-alt"></i> {% if student.interviews %}{{ student.interviews }}{% else %}No Interviews{% endif %}
+        </p>
+	</div>
+</div>
+<section>
+
+
+</section>
+
+<a href="/students/{{ student.id }}/edit"><button class="btn btn-primary btn-lg">Edit</button></a>
+
+{% endblock %}
+

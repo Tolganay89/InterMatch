@@ -122,6 +122,34 @@ def search_student():
   # create search_students page to do in the future.
   return render_template('pages/search_students.html', results=response, search_term=request.form.get('search_term', ''))
 
+"""
+show all the student endpoint 
+"""
+@app.route('/students/<int:student_id>')
+def show_student(student_id):
+  # shows the student page with the given student_id
+
+  # 1. getting the data from the db
+  student = Student.query.get(student_id)
+
+  # 2. if not found
+  if student is None:
+        print('error')
+        abort(404)
+
+  data = {
+    "id": student.id,
+    "id_student_college": student.id_student_college,
+    "name": student.name,
+    "availability": student.availability,
+    "address": student.address,
+    "phone": student.phone, 
+    "interviews": student.interviews
+    
+    }
+
+  # create search_students page to do in the future.
+  return render_template('pages/show_student.html', student=data)
 
 #----------------------------------------------------------------------------#
 # Launch.

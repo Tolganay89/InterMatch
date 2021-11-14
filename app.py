@@ -71,7 +71,9 @@ class Interview(db.Model):
 #----------------------------------------------------------------------------#
 # Controllers.
 #----------------------------------------------------------------------------#
-
+"""
+router header or an endpoint for homepage
+"""
 @app.route('/')
 def index():
   db.create_all()
@@ -103,6 +105,7 @@ def students():
   
 
   return render_template('pages/students.html', areas=data);
+
 
 """
 create an endpoint for the search the of the students
